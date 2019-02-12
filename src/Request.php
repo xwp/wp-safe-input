@@ -40,7 +40,7 @@ class Request {
 	 *
 	 * @param  string $name     Parameter name.
 	 * @param  integer $filters Input filters.
-	 * @param  mixed  $options  Associative array of options or bitwise disjunction of flags.
+	 * @param  mixed $options   Associative array of options or bitwise disjunction of flags.
 	 *
 	 * @return mixed
 	 */

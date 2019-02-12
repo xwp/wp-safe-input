@@ -23,6 +23,15 @@ class Request {
 	}
 
 	/**
+	 * Get the current request type.
+	 *
+	 * @return integer
+	 */
+	public function type() {
+		return $this->type;
+	}
+
+	/**
 	 * Get a sanitized request parameter.
 	 *
 	 * Uses FILTER_SANITIZE_STRING as the default sanitizer.

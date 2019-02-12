@@ -7,5 +7,14 @@
       "\\XWP\\SafeInput\\": "src/"
     }
   },
-  "require": {}
+  "require": {},
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^2.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0"
+  },
+  "scripts": {
+    "lint": [
+      "vendor/bin/phpcs ."
+    ]
+  }
 }

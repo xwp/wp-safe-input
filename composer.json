@@ -1,0 +1,11 @@
+{
+  "name": "xwp/wp-safe-input",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "\\XWP\\SafeInput\\": "src/"
+    }
+  },
+  "require": {}
+}

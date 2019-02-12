@@ -12,7 +12,8 @@ class AwesomeMetaBox {
 	const METABOX_ID = 'awesome-post-meta-box';
 	const META_KEY = 'awesome-meta-key';
 	const INPUT_NAME = 'awesome-input-field-name';
-	const INPUT_NONCE_ACTION = 'awesome-nonce-action';
+	const NONCE_ACTION = 'awesome-nonce-action';
+	const NONCE_INPUT_NAME = 'awesome-nonce-input';
 
 	public function init_hooks() {
 		add_action( 'add_meta_boxes', [ $this, 'register' ] );
@@ -51,6 +52,7 @@ class AwesomeMetaBox {
 				/>
 			<?php esc_html_e( 'Mark this post as awesome', 'awesome-post-meta' ); ?>
 		</label>
+		<?php wp_nonce_field( self::NONCE_ACTION, self::NONCE_INPUT_NAME ); ?>
 		<?php
 	}
 
@@ -58,7 +60,7 @@ class AwesomeMetaBox {
 		$request = new Request( INPUT_GET );
 		$meta = new PostMeta( $post_id );
 
-		if ( $request->verify_nonce( self::INPUT_NONCE_ACTION ) && $meta->can_save() ) {
+		if ( $request->verify_nonce( self::NONCE_ACTION, self::NONCE_INPUT_NAME ) && $meta->can_save() ) {
 			$setting = new AwesomeSetting( $post_id, self::META_KEY );
 
 			if ( $this->is_selected( $request->param( self::INPUT_NAME ) ) ) {

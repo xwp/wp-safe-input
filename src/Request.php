@@ -57,7 +57,7 @@ class Request {
 	 * @return boolean
 	 */
 	public function verify_nonce( $action, $name = '_wpnonce' ) {
-		return wp_verify_nonce( $this->param( $name ), $action );
+		return ( false !== wp_verify_nonce( $this->param( $name ), $action ) );
 	}
 
 }

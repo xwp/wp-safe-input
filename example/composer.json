@@ -1,0 +1,14 @@
+{
+  "name": "xwp/wp-safe-input-example",
+  "type": "wordpress-plugin",
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "\\XWP\\SafeInputExample\\": "src/"
+    }
+  },
+  "require": {
+    "xwp/wp-safe-input": "*"
+  }
+}

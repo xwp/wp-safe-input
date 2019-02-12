@@ -14,34 +14,71 @@ composer require xwp/wp-safe-input
 
 ## Usage
 
+Assuming that our custom setting and input are defined as a following objects:
+
+```php
+/**
+ * Our custom admin setting object.
+ */
+class AwesomeSetting {
+    protected $post_id;
+    protected $meta_key;
+
+    public function __construct( $post_id, $meta_key ) {
+        $this->post_id = $post_id;
+        $this->meta_key = $meta_key;
+    }
+
+    public function get() {
+        return ( '1' === get_post_meta( $this->post_id, $this->meta_key, true ) );
+    }
+
+    public function set() {
+        return update_post_meta( $this->post_id, $this->meta_key, 1 );
+    }
+
+    public function delete() {
+        return delete_post_meta( $this->post_id, $this->meta_key );
+    }
+}
+
+class AwesomeSettingInput {
+    protected $input;
+
+    public function __construct( $input ) {
+        $this->input = $input;
+    }
+
+    public function is_selected() {
+        return ( 'yes' === $this->input );
+    }
+}
+```
+
+we can use the library to prepare and validate the input data:
+
 ```php
 use XWP\SafeInput\PostMeta;
 use XWP\SafeInput\Request;
 
-class AwesomeAdminSetting {
-    const NONCE_ACTION = 'our-nonce-action';
-    const INPUT_NAME = 'our-input-field-name';
-    const META_KEY = 'our-meta-key';
+add_action( 'save_post', function ( $post_id ) {
+    $request = new Request( INPUT_GET );
+    $meta = new PostMeta( $post_id );
 
-    public function is_selected( $input ) {
-        return ( 'yes' === $input );
-    }
+    $setting_input = new AwesomeSettingInput(
+        $request->param( 'awesome-input-field-name' )
+    );
 
-    public function save_post( $post_id ) {
-        $request = new Request( INPUT_GET );
-        $meta = new PostMeta( $post_id );
+    if ( $request->verify_nonce( 'awesome-nonce-action' ) && $meta->can_save() ) {
+        $setting = new AwesomeSetting( $post_id, 'awesome-meta-key' );
 
-        if ( $request->verify_nonce( self::NONCE_ACTION ) && $meta->can_save() ) {
-            if ( $this->is_selected( $request->param( self::INPUT_NAME ) ) ) {
-                update_post_meta( $post_id, self::META_KEY, 1 );
-            } else {
-                delete_post_meta( $post_id, self::META_KEY );
-            }
+        if ( $setting_input->is_selected() ) {
+            $setting->set();
+        } else {
+            $setting->delete();
         }
     }
-}
-
-// Now use the
-$admin_setting = new AwesomeAdminSetting();
-add_action( 'save_post', [ $admin_setting, 'save_post' ] );
+} );
 ```
+
+Notice how everything related to the form input processing is separate from how the data is defined and stored.

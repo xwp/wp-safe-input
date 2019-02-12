@@ -4,17 +4,31 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "\\XWP\\SafeInput\\": "src/"
+      "XWP\\SafeInput\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "XWP\\SafeInput\\Tests\\": "tests/unit/"
     }
   },
   "require": {},
   "require-dev": {
     "wp-coding-standards/wpcs": "^2.0",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0"
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+    "php-coveralls/php-coveralls": "^2.1",
+    "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0",
+    "10up/wp_mock": "^0.4.0"
   },
   "scripts": {
     "lint": [
       "vendor/bin/phpcs ."
+    ],
+    "test": [
+      "vendor/bin/phpunit"
+    ],
+    "coveralls": [
+      "vendor/bin/php-coveralls -v"
     ]
   }
 }

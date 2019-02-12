@@ -57,7 +57,7 @@ class AwesomeMetaBox {
 	}
 
 	public function save( $post_id ) {
-		$request = new Request( INPUT_GET );
+		$request = new Request( INPUT_POST );
 		$meta = new PostMeta( $post_id );
 
 		if ( $request->verify_nonce( self::NONCE_ACTION, self::NONCE_INPUT_NAME ) && $meta->can_save() ) {

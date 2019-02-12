@@ -45,7 +45,7 @@ class AwesomeMetaBox {
 				type="checkbox"
 				value="yes"
 				name="<?php echo esc_attr( self::INPUT_NAME ); ?>"
-				<?php checked( $setting->get() ) ?>
+				<?php checked( $setting->get() ); ?>
 				/>
 			<?php esc_html_e( 'Mark this post as awesome', 'awesome-post-meta' ); ?>
 		</label>

@@ -23,7 +23,9 @@ class AwesomeMetaBox {
 		add_meta_box(
 			self::METABOX_ID,
 			__( 'Awesome Post Meta', 'awesome-post-meta' ),
-			[ $this, 'render' ]
+			[ $this, 'render' ],
+			'post',
+			'side'
 		);
 	}
 

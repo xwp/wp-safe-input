@@ -5,7 +5,7 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "\\XWP\\SafeInputExample\\": "src/"
+      "XWP\\SafeInputDemo\\": "src/"
     }
   },
   "require": {
